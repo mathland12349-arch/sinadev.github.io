@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>سینا اصغرزاده</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="سینا اصغرزاده، توسعه‌دهنده اپلیکیشن اندروید و وبسایت">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: RTL one-page portfolio matching the supplied UI. Hero photo anchored left and faded into the navy page, copy on the right; 3D-rendered illustration, glass icon tiles and project shots come from the supplied artwork. Ambient WebGL particles sit behind translucent bands. Single deliberate dark look. */
+:root{
+  --bg:#070e1f;
+  --bg-2:#0a1430;
+  --panel:rgba(13,22,52,.66);
+  --line:rgba(120,150,255,.2);
+  --fg:#eef2ff;
+  --muted:#a6b0dc;
+  --accent:#4f7cff;
+  --accent-2:#8b5cff;
+  --teal:#2dd4bf;
+  --grad:linear-gradient(100deg,#4f7cff 0%,#8b5cff 100%);
+  --font-display:'Vazirmatn',Tahoma,'Segoe UI',system-ui,sans-serif;
+  --font-body:'Vazirmatn',Tahoma,'Segoe UI',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --t-lg:1.2rem;
+  --t-xl:clamp(1.5rem,3.2vw,2.1rem);
+  --t-hero:clamp(3rem,8.5vw,5.6rem);
+  --radius:18px;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:1rem;line-height:1.9;direction:rtl;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+img{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+#stage{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+.page{position:relative;z-index:1}
+.wrap{width:100%;max-width:1180px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.mono{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(7,14,31,.74);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.25rem}
+.brand img{height:40px;width:auto}
+.nav{display:flex;gap:6px;margin-inline-start:auto}
+.nav a{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px;color:var(--muted);font-weight:500;font-size:.95rem;position:relative;transition:color .2s}
+.nav a:hover{color:var(--fg)}
+.nav a.on{color:#7fa0ff}
+.nav a.on::after{content:"";position:absolute;inset-inline:14px;bottom:-1px;height:2px;border-radius:2px;background:var(--grad)}
+.nav .ni{display:none;width:38px;height:36px;object-fit:contain}
+.menu-btn{display:none;margin-inline-start:auto;width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--panel);cursor:pointer;align-items:center;justify-content:center}
+.menu-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:700;cursor:pointer;border:1px solid transparent;transition:transform .2s,box-shadow .2s,border-color .2s}
+.btn svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 10px 30px -8px rgba(79,124,255,.7)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px -8px rgba(139,92,255,.75)}
+.btn-ghost{background:rgba(255,255,255,.03);border-color:rgba(190,200,255,.35)}
+.btn-ghost:hover{border-color:var(--accent);transform:translateY(-2px)}
+.btn-sm{min-height:40px;padding:0 18px;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);isolation:isolate}
+.hero-photo{position:absolute;left:0;top:0;height:100%;width:min(68%,1000px);object-fit:cover;object-position:left center;z-index:-2;
+  -webkit-mask-image:linear-gradient(to right,#000 58%,transparent 100%);mask-image:linear-gradient(to right,#000 58%,transparent 100%);
+  transform:perspective(1400px) translate3d(var(--tx,0px),var(--ty,0px),0) rotateY(var(--hy,0deg)) rotateX(var(--hx,0deg)) scale(1.04);
+  transition:transform .25s ease-out}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to left,var(--bg) 0%,rgba(7,14,31,.88) 32%,rgba(7,14,31,0) 62%),linear-gradient(to top,var(--bg) 0%,rgba(7,14,31,0) 14%)}
+.hero-inner{padding-block:clamp(44px,7vw,96px)}
+.hero-copy{width:min(100%,540px)}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:5px 14px;border:1px solid var(--line);border-radius:999px;background:var(--panel);font-size:.8rem;color:var(--muted)}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+h1{font-family:var(--font-display);font-size:var(--t-hero);line-height:1.2;font-weight:900;margin:16px 0 4px;text-wrap:balance}
+.g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero h2{font-size:clamp(1.5rem,3.6vw,2.2rem);font-weight:700;margin:0 0 14px;line-height:1.5}
+.hero p{color:var(--muted);font-size:var(--t-lg);margin:0 0 28px;max-width:30em}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+
+/* bands */
+.band{padding-block:clamp(52px,8vw,92px);background:linear-gradient(180deg,rgba(7,14,31,.84),rgba(8,17,40,.9));border-top:1px solid var(--line)}
+.band.alt{background:linear-gradient(180deg,rgba(10,20,48,.9),rgba(7,14,31,.86))}
+.sec-title{font-size:var(--t-xl);font-weight:900;margin:0 0 8px;line-height:1.4}
+.sec-bar{width:52px;height:4px;border-radius:4px;background:var(--grad);margin-bottom:20px}
+.sec-sub{color:var(--muted);margin:0 0 32px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(20px,5vw,56px);align-items:center}
+.about-grid>*{min-width:0}
+.about-text p{color:#c5cdf0;margin:0 0 28px;max-width:36em}
+.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.feat{margin:0;text-align:center;font-size:.9rem;line-height:1.6;color:#d4dbfa;transition:transform .2s}
+.feat:hover{transform:translateY(-4px)}
+.feat img{width:100%;max-width:104px;height:auto;margin:0 auto 8px;filter:drop-shadow(0 12px 18px rgba(79,124,255,.28))}
+.ill{perspective:1100px}
+.ill img{width:100%;height:auto;-webkit-mask-image:radial-gradient(ellipse 54% 54% at 50% 50%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 54% 54% at 50% 50%,#000 62%,transparent 100%);
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .2s ease-out;will-change:transform}
+
+/* work */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.card{position:relative;display:block;margin:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .15s ease-out,border-color .2s,box-shadow .2s;will-change:transform}
+.card:hover{border-color:rgba(139,160,255,.6);box-shadow:0 24px 50px -24px rgba(79,124,255,.6)}
+.card img{width:100%;aspect-ratio:1.9/1;object-fit:cover;object-position:50% 100%}
+.cap{position:absolute;inset:auto 0 0;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:26px 16px 12px;background:linear-gradient(0deg,rgba(5,10,28,.92),rgba(5,10,28,0))}
+.cap b{font-weight:700}
+.go{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid rgba(160,180,255,.5);display:grid;place-items:center;color:#a9bcff}
+.go svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+.skill{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;align-items:start;padding:22px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.skill img{grid-row:1/3;width:72px;height:auto}
+.skill h3{margin:0;font-size:1.15rem;line-height:1.5}
+.skill p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.7}
+.skill .tags{grid-column:1/-1;margin-top:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{padding:3px 12px;border-radius:999px;border:1px solid var(--line);background:rgba(79,124,255,.1);font-size:.85rem;color:#cdd6ff}
+.tags .mono{font-size:.78rem}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,56px);align-items:center}
+.contact-grid>*{min-width:0}
+.contact h2{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.4;margin:0 0 14px;font-weight:900;text-wrap:balance}
+.contact p{color:#c5cdf0;margin:0;max-width:30em}
+.channels{display:grid;gap:14px}
+.chan{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:16px 18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+.chan .lbl{display:flex;align-items:center;gap:10px;font-weight:700;min-width:84px}
+.chan .lbl svg{width:22px;height:22px;fill:none;stroke:#7fa0ff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chan .val{flex:1 1 180px;min-width:0;font-size:1rem;color:#d6defe;user-select:all;overflow-wrap:anywhere}
+.chan .acts{display:flex;gap:8px;margin-inline-start:auto}
+.status{font-size:.85rem;color:var(--teal);min-height:1.4em;margin:8px 4px 0}
+
+/* footer */
+.foot{border-top:1px solid var(--line);background:#050a18;padding-block:26px}
+.foot .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:18px 28px}
+.fb{display:flex;align-items:center;gap:12px}
+.fb img{height:44px;width:auto}
+.fb b{display:block;line-height:1.4}
+.fb small{color:var(--muted)}
+.fc{display:flex;flex-wrap:wrap;gap:6px 24px;color:#cdd6ff;font-size:.9rem}
+.fc span{user-select:all;overflow-wrap:anywhere}
+.fine{color:var(--muted);font-size:.85rem}
+
+@media (max-width:860px){
+  .hero-photo{position:relative;width:100%;height:auto;aspect-ratio:16/10;display:block;
+    -webkit-mask-image:linear-gradient(to bottom,#000 60%,transparent 100%);mask-image:linear-gradient(to bottom,#000 60%,transparent 100%)}
+  .hero::after{display:none}
+  .hero-inner{padding-top:0;margin-top:-28px;position:relative}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .ill{order:-1}
+  .menu-btn{display:flex}
+  .nav{display:none;position:absolute;top:100%;inset-inline:0;flex-direction:column;gap:0;padding:8px max(16px,env(safe-area-inset-left,0px)) 14px;background:rgba(7,14,31,.97);border-bottom:1px solid var(--line)}
+  .nav.open{display:flex}
+  .nav a{padding:6px 4px;border-radius:0;font-size:1rem}
+  .nav a.on::after{display:none}
+  .nav .ni{display:block}
+  .top .wrap{position:relative}
+}
+@media (max-width:560px){
+  .feats{grid-template-columns:repeat(2,1fr)}
+  .chan .acts{margin-inline-start:0;width:100%}
+  .foot .wrap{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){.card,.btn,.feat,.hero-photo,.ill img{transition:none}}
+</style>
+
+<div dir="rtl" lang="fa" id="app">
+<canvas id="stage" aria-hidden="true"></canvas>
+<div class="page">
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home" aria-label="سینا اصغرزاده، صفحه اصلی">
+      <img src="img/logo.png" alt="" width="29" height="40">
+      <span>سینا اصغرزاده</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="منو">
+      <svg viewBox="0 0 24 24"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="منوی اصلی">
+      <a href="#home"><img class="ni" src="img/home.png" alt="">خانه</a>
+      <a href="#about"><img class="ni" src="img/star.png" alt="">درباره من</a>
+      <a href="#work"><img class="ni" src="img/people.png" alt="">نمونه‌کارها</a>
+      <a href="#skills"><img class="ni" src="img/list.png" alt="">مهارت‌ها</a>
+      <a href="#contact"><img class="ni" src="img/chat.png" alt="">تماس با من</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <img class="hero-photo" id="heroPhoto" src="img/hero.jpg" alt="توسعه‌دهنده پشت میز کار در حال کدنویسی اپلیکیشن" width="1700" height="972">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <span class="chip"><i></i><span class="mono">Sina Dev · Android &amp; Web</span></span>
+      <h1>سینا <span class="g">اصغرزاده</span></h1>
+      <h2>ساخت اپلیکیشن و سایت</h2>
+      <p>با ترکیب خلاقیت و تکنولوژی، تجربه‌های دیجیتال کاربردی و مدرن را برای شما می‌سازم.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#work"><svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>مشاهده نمونه‌کارها</a>
+        <a class="btn btn-ghost" href="#contact"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>تماس با من</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="sec-title">درباره من</h2>
+        <div class="sec-bar"></div>
+        <p>من سینا اصغرزاده هستم، توسعه‌دهنده اپلیکیشن و وبسایت. با استفاده از تکنولوژی‌های روز دنیا، اپلیکیشن‌های اندروید و سایت‌های مدرن طراحی و پیاده‌سازی می‌کنم. هدف من، تبدیل ایده‌های شما به محصولات واقعی و کاربردی است.</p>
+        <div class="feats">
+          <figure class="feat"><img src="img/code.png" alt="" width="228" height="222" loading="lazy"><figcaption>تخصص در<br>اپلیکیشن و وب</figcaption></figure>
+          <figure class="feat"><img src="img/bulb.png" alt="" width="220" height="220" loading="lazy"><figcaption>خلاقانه<br>و نوآورانه</figcaption></figure>
+          <figure class="feat"><img src="img/shield.png" alt="" width="222" height="220" loading="lazy"><figcaption>امن<br>و قابل اعتماد</figcaption></figure>
+          <figure class="feat"><img src="img/bolt.png" alt="" width="230" height="218" loading="lazy"><figcaption>سریع<br>و حرفه‌ای</figcaption></figure>
+        </div>
+      </div>
+      <div class="ill" data-tilt>
+        <img src="img/about.jpg" alt="گوشی و لپ‌تاپ با نمایش اپلیکیشن و وبسایت، آیکون اندروید و کد" width="1240" height="728" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="work">
+  <div class="wrap">
+    <h2 class="sec-title">نمونه‌کارها</h2>
+    <div class="sec-bar"></div>
+    <p class="sec-sub">برخی از پروژه‌های انجام شده توسط من</p>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<section class="band" id="skills">
+  <div class="wrap">
+    <h2 class="sec-title">مهارت‌ها</h2>
+    <div class="sec-bar"></div>
+    <p class="sec-sub">ابزارهایی که برای ساخت محصول از ایده تا انتشار به کار می‌برم</p>
+    <div class="skills">
+      <div class="skill">
+        <img src="img/phonedev.png" alt="" width="240" height="220" loading="lazy">
+        <h3>توسعه اپلیکیشن</h3>
+        <p>اپلیکیشن‌های اندروید با رابط روان و سریع.</p>
+        <div class="tags"><span class="mono">Android</span><span class="mono">Kotlin</span><span>رابط موبایل</span><span>اتصال به API</span></div>
+      </div>
+      <div class="skill">
+        <img src="img/globe.png" alt="" width="246" height="224" loading="lazy">
+        <h3>طراحی وب</h3>
+        <p>سایت‌های مدرن و سازگار با همه اندازه صفحه‌ها.</p>
+        <div class="tags"><span class="mono">HTML</span><span class="mono">CSS</span><span class="mono">JavaScript</span><span>ریسپانسیو</span></div>
+      </div>
+      <div class="skill">
+        <img src="img/andweb.png" alt="" width="288" height="224" loading="lazy">
+        <h3>Android &amp; Web</h3>
+        <p>از طرح اولیه تا نسخه نهایی، با توجه به تجربه کاربر و امنیت.</p>
+        <div class="tags"><span>طراحی رابط کاربری</span><span>تجربه کاربری</span><span>بهینه‌سازی سرعت</span><span class="mono">Git</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt contact" id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h2>با هم ایده‌ات را <span class="g">واقعی</span> کنیم</h2>
+        <p>ایده یا پروژه‌ات را برایم بنویس. از هر کدام از راه‌های زیر راحت‌تری پیام بده.</p>
+      </div>
+      <div>
+        <div class="channels">
+          <div class="chan">
+            <span class="lbl"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>ایمیل</span>
+            <span class="val mono" id="mail">sinadev2980@gmail.com</span>
+            <span class="acts"><button type="button" class="btn btn-ghost btn-sm" data-copy="#mail">کپی</button></span>
+          </div>
+          <div class="chan">
+            <span class="lbl"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>تلگرام</span>
+            <span class="val mono" id="tg">@sina72890</span>
+            <span class="acts">
+              <button type="button" class="btn btn-ghost btn-sm" data-copy="#tg">کپی</button>
+              <a class="btn btn-primary btn-sm" href="https://t.me/sina72890" target="_blank" rel="noopener">باز کردن</a>
+            </span>
+          </div>
+        </div>
+        <div class="status" id="copyStatus" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fb">
+      <img src="img/logo.png" alt="" width="32" height="44">
+      <div><b>سینا اصغرزاده</b><small>ساخت اپلیکیشن و سایت</small></div>
+    </div>
+    <div class="fc mono"><span>sinadev2980@gmail.com</span><span>@sina72890</span></div>
+    <div class="fine">با هم ایده‌ها را واقعی کنیم...</div>
+  </div>
+</footer>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ---------- page behaviour ---------- */
+(function(){
+  var DATA_URL='data/projects.json'; /* the project list lives in the GitHub repo; a raw.githubusercontent.com URL also works when hosted elsewhere */
+  var DEFAULTS=[
+    {title:'اپلیکیشن کاربردی',kind:'app',image:'img/project-app.jpg',alt:'نمونه اپلیکیشن کاربردی با رابط روشن و نمودار',baked:true,link:''},
+    {title:'وبسایت شرکتی',kind:'web',image:'img/project-web.jpg',alt:'نمونه وبسایت شرکتی با تصویر کوهستان',baked:true,link:''},
+    {title:'اپلیکیشن موبایل',kind:'app',image:'img/project-mobile.jpg',alt:'نمونه اپلیکیشن موبایل با رابط تیره و بنفش',baked:true,link:''}
+  ];
+  var ARROW='<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>';
+  var cardsEl=document.getElementById('cards');
+  var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function safeUrl(u){u=String(u||'');return /^(https?:\/\/|\/|\.\/|img\/|data\/)/.test(u)?u:'';}
+  function tilt(el,max){
+    if(!fine||calm)return;
+    el.addEventListener('pointermove',function(e){
+      var r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;
+      el.style.setProperty('--ry',(px*max).toFixed(2)+'deg');el.style.setProperty('--rx',(-py*max).toFixed(2)+'deg');
+    });
+    el.addEventListener('pointerleave',function(){el.style.setProperty('--rx','0deg');el.style.setProperty('--ry','0deg');});
+  }
+  function render(list){
+    var html='';
+    list.forEach(function(p){
+      var img=safeUrl(p.image);if(!img)return;
+      var link=safeUrl(p.link);
+      var inner='<img src="'+esc(img)+'" alt="'+esc(p.alt||p.title)+'" loading="lazy">'+
+        (p.baked?'':'<div class="cap"><b>'+esc(p.title)+'</b><span class="go">'+ARROW+'</span></div>');
+      html+=link?'<a class="card" href="'+esc(link)+'" target="_blank" rel="noopener" aria-label="'+esc(p.title)+'">'+inner+'</a>'
+                :'<figure class="card" aria-label="'+esc(p.title)+'">'+inner+'</figure>';
+    });
+    cardsEl.innerHTML=html;
+    [].forEach.call(cardsEl.children,function(c){tilt(c,10);});
+  }
+  render(DEFAULTS);
+  if(window.fetch){
+    fetch(DATA_URL,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+      if(Array.isArray(d)&&d.length)render(d);
+    }).catch(function(){});
+  }
+
+  /* menu */
+  var btn=document.getElementById('menuBtn'),nav=document.getElementById('nav');
+  btn.addEventListener('click',function(){var o=nav.classList.toggle('open');btn.setAttribute('aria-expanded',String(o));});
+  nav.addEventListener('click',function(e){if(e.target.closest('a')){nav.classList.remove('open');btn.setAttribute('aria-expanded','false');}});
+  var links=[].slice.call(nav.querySelectorAll('a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  function active(){
+    var y=window.innerHeight*0.35,cur=0;
+    secs.forEach(function(s,i){if(s.getBoundingClientRect().top<=y)cur=i;});
+    links.forEach(function(a,i){a.classList.toggle('on',i===cur);});
+  }
+  window.addEventListener('scroll',active,{passive:true});window.addEventListener('resize',active);active();
+
+  /* tilt + hero parallax */
+  [].forEach.call(document.querySelectorAll('[data-tilt]'),function(el){tilt(el,8);});
+  var hp=document.getElementById('heroPhoto');
+  if(fine&&!calm&&hp){
+    window.addEventListener('pointermove',function(e){
+      var x=e.clientX/window.innerWidth-.5,y=e.clientY/window.innerHeight-.5;
+      hp.style.setProperty('--hy',(x*3).toFixed(2)+'deg');hp.style.setProperty('--hx',(-y*2).toFixed(2)+'deg');
+      hp.style.setProperty('--tx',(x*-10).toFixed(1)+'px');hp.style.setProperty('--ty',(y*-6).toFixed(1)+'px');
+    },{passive:true});
+  }
+
+  /* copy buttons */
+  var st=document.getElementById('copyStatus');
+  [].forEach.call(document.querySelectorAll('[data-copy]'),function(b){
+    b.addEventListener('click',function(){
+      var el=document.querySelector(b.getAttribute('data-copy'));
+      var text=el.textContent.trim();
+      function pick(){var r=document.createRange();r.selectNodeContents(el);var s=window.getSelection();s.removeAllRanges();s.addRange(r);st.textContent='متن انتخاب شد، با Ctrl+C کپی کن.';}
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){st.textContent='کپی شد: '+text;},pick);}else{pick();}
+    });
+  });
+})();
+
+/* ---------- ambient 3D background ---------- */
+(function(){
+  var canvas=document.getElementById('stage');
+  var calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!window.THREE){canvas.style.display='none';return;}
+  var renderer;
+  try{renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true});}catch(e){canvas.style.display='none';return;}
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  var scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(40,1,0.1,100);camera.position.z=10;
+  var wires=[[-5.2,1.6,-3,1.1,0x4f7cff],[5.4,-0.4,-4,1.5,0x8b5cff],[-3.2,-3.2,-3.5,0.9,0x2dd4bf],[3.0,3.0,-5,0.8,0x4f7cff]].map(function(a){
+    var m=new THREE.Mesh(new THREE.IcosahedronGeometry(a[3],1),new THREE.MeshBasicMaterial({color:a[4],wireframe:true,transparent:true,opacity:0.28}));
+    m.position.set(a[0],a[1],a[2]);scene.add(m);return m;
+  });
+  var N=300,pos=new Float32Array(N*3);
+  for(var i=0;i<N;i++){pos[i*3]=(Math.random()-.5)*32;pos[i*3+1]=(Math.random()-.5)*20;pos[i*3+2]=-9+Math.random()*10;}
+  var pg=new THREE.BufferGeometry();pg.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  var pts=new THREE.Points(pg,new THREE.PointsMaterial({color:0x9aa8ff,size:0.045,transparent:true,opacity:0.7,sizeAttenuation:true}));
+  scene.add(pts);
+  var W=1,H=1,mx=0,my=0,tx=0,ty=0;
+  function layout(){W=window.innerWidth;H=window.innerHeight;renderer.setSize(W,H,false);camera.aspect=W/H;camera.updateProjectionMatrix();}
+  window.addEventListener('pointermove',function(e){tx=(e.clientX/W-.5)*2;ty=(e.clientY/H-.5)*2;},{passive:true});
+  function frame(t){
+    var s=t*0.001,sy=window.scrollY||0;
+    mx+=(tx-mx)*0.05;my+=(ty-my)*0.05;
+    wires.forEach(function(w,i){w.rotation.x=s*0.12*(i+1);w.rotation.y=s*0.16*(i+1);w.position.y+=Math.sin(s+i)*0.0015;});
+    pts.rotation.y=s*0.015+mx*0.06;pts.rotation.x=my*0.03;pts.position.y=sy*0.0016;
+    camera.position.x=mx*0.4;camera.position.y=-my*0.3;camera.lookAt(0,0,0);
+    renderer.render(scene,camera);
+  }
+  layout();
+  if(calm){frame(0);window.addEventListener('resize',function(){layout();frame(0);});}
+  else{
+    var run=true;
+    document.addEventListener('visibilitychange',function(){run=!document.hidden;if(run)requestAnimationFrame(loop);});
+    window.addEventListener('resize',layout);
+    function loop(t){if(!run)return;frame(t);requestAnimationFrame(loop);}
+    requestAnimationFrame(loop);
+  }
+})();
+</script>
+
+</body>
+</html>
